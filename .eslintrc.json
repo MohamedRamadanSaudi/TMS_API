@@ -1,8 +1,9 @@
 {
   "extends": [
-    "airbnb",
-    "prettier",
-    "plugin:node/recommended"
+  "airbnb",
+  "prettier",
+  "plugin:node/recommended",
+  "plugin:prettier/recommended"
   ],
   "plugins": [
     "prettier"

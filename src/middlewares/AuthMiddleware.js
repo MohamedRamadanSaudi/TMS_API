@@ -5,14 +5,9 @@ const catchAsync = require('../utils/catchAsync');
 
 const auth = catchAsync(async (req, res, next) => {
   let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
-  ) {
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     token = req.headers.authorization.split(' ')[1];
   }
-
-  console.log('Received Token:', token); // Log the token for debugging
 
   if (!token) {
     return next(new AppError('You are not logged in! Please log in to get access.', 401));

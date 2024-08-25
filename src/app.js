@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const morgan = require("morgan");
+const morgan = require('morgan');
 const connectDB = require('./config/database');
 const AppError = require('./utils/appError');
 const errorHandler = require('./middlewares/errorHandler');
@@ -18,7 +18,7 @@ connectDB();
 
 // Middlewares
 app.use(cookieParser());
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.json());
 

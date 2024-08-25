@@ -1,13 +1,13 @@
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 
 // Generate JWT Token
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN
+    expiresIn: process.env.JWT_EXPIRES_IN,
   });
 };
 
@@ -34,8 +34,8 @@ exports.login = catchAsync(async (req, res, next) => {
     status: 'success',
     token,
     data: {
-      user
-    }
+      user,
+    },
   });
 });
 
@@ -45,8 +45,8 @@ exports.createUser = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: 'success',
     data: {
-      user: newUser
-    }
+      user: newUser,
+    },
   });
 });
 
@@ -57,8 +57,8 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
     status: 'success',
     results: users.length,
     data: {
-      users
-    }
+      users,
+    },
   });
 });
 
@@ -71,8 +71,8 @@ exports.getUser = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: {
-      user
-    }
+      user,
+    },
   });
 });
 
@@ -80,7 +80,7 @@ exports.getUser = catchAsync(async (req, res, next) => {
 exports.updateUser = catchAsync(async (req, res, next) => {
   const user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
-    runValidators: true
+    runValidators: true,
   });
   if (!user) {
     return next(new AppError('No user found with that ID', 404));
@@ -88,8 +88,8 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: {
-      user
-    }
+      user,
+    },
   });
 });
 
@@ -100,11 +100,11 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
     return next(new AppError('No user found with that ID', 404));
   }
 
-  if(user.role === 'admin') {
+  if (user.role === 'admin') {
     return next(new AppError('You cannot delete an admin user', 403));
   }
   res.status(204).json({
     status: 'success',
-    data: null
+    data: null,
   });
 });
